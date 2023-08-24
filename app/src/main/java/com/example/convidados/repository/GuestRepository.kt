@@ -12,4 +12,6 @@ class GuestRepository private constructor() {
             return repository
         }
     }
+
+    fun save(){ TODO("NOT YET IMPLEMENTED") }
 }
