@@ -1,5 +1,8 @@
 package com.example.convidados.repository
 
+// Função desse código é conectar com o banco
+// Ele fonrnece uma conexão com o banco
+
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
