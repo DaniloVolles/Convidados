@@ -21,17 +21,24 @@ class GuestRepository private constructor(context: Context) {
         }
     }
 
-    fun insert(guest: GuestModel) {
+    fun insert(guest: GuestModel): Boolean {
 
-        val db = guestDataBase.writableDatabase
+        return try {
+            val db = guestDataBase.writableDatabase
 
-        val presence = if (guest.presence) 1 else 0
-        val values = ContentValues()
+            val presence = if (guest.presence) 1 else 0
+            val values = ContentValues()
 
-        values.put("name", guest.name)
-        values.put("presence", presence)
+            values.put("name", guest.name)
+            values.put("presence", presence)
 
-        db.insert("Guest", null, values)
+            db.insert("Guest", null, values)
+
+            true
+        } catch (e: Exception) {
+            false
+        }
+
     }
 
     fun save() {
