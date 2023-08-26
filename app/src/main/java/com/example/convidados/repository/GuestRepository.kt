@@ -4,6 +4,8 @@ package com.example.convidados.repository
 
 import android.content.ContentValues
 import android.content.Context
+import androidx.core.content.contentValuesOf
+import com.example.convidados.constants.DataBaseConstants
 import com.example.convidados.model.GuestModel
 
 class GuestRepository private constructor(context: Context) {
@@ -29,10 +31,10 @@ class GuestRepository private constructor(context: Context) {
             val presence = if (guest.presence) 1 else 0
             val values = ContentValues()
 
-            values.put("name", guest.name)
-            values.put("presence", presence)
+            values.put(DataBaseConstants.GUEST.COLUMNS.NAME, guest.name)
+            values.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, presence)
 
-            db.insert("Guest", null, values)
+            db.insert(DataBaseConstants.GUEST.TABLE_NAME, null, values)
 
             true
         } catch (e: Exception) {
@@ -41,7 +43,23 @@ class GuestRepository private constructor(context: Context) {
 
     }
 
-    fun save() {
-        TODO("NOT YET IMPLEMENTED")
+    fun update(guest: GuestModel): Boolean {
+        return try {
+            val db = guestDataBase.writableDatabase
+            val presence = if (guest.presence) 1 else 0
+
+            val values = ContentValues()
+            values.put(DataBaseConstants.GUEST.COLUMNS.PRESENCE, presence)
+            values.put(DataBaseConstants.GUEST.COLUMNS.NAME ,guest.name)
+
+            val selection = DataBaseConstants.GUEST.COLUMNS.ID + "id = ?"
+            val args = arrayOf(guest.id.toString())
+
+            db.update(DataBaseConstants.GUEST.TABLE_NAME, values, selection, args)
+
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 }
