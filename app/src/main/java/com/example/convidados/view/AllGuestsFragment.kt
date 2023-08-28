@@ -7,7 +7,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.convidados.databinding.FragmentAllGuestsBinding
+import com.example.convidados.view.adapter.GuestsAdapter
 import com.example.convidados.viewmodel.AllGuestsViewModel
 
 class AllGuestsFragment : Fragment() {
@@ -16,20 +19,21 @@ class AllGuestsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: AllGuestsViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        viewModel = ViewModelProvider(this).get(AllGuestsViewModel::class.java)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
 
+        viewModel = ViewModelProvider(this)[AllGuestsViewModel::class.java]
         _binding = FragmentAllGuestsBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+
+        // Layout
+        binding.recyclerAllGuests.layoutManager = LinearLayoutManager(context)
+
+        // Adapter
+        binding.recyclerAllGuests.adapter = GuestsAdapter()
 
         viewModel.getAll()
 
         observe()
-        return root
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -37,8 +41,8 @@ class AllGuestsFragment : Fragment() {
         _binding = null
     }
 
-    private fun observe(){
-        viewModel.guests.observe(viewLifecycleOwner){
+    private fun observe() {
+        viewModel.guests.observe(viewLifecycleOwner) {
             val s = ""
         }
     }
