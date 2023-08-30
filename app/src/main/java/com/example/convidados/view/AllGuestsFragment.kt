@@ -26,7 +26,7 @@ class AllGuestsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, b: Bundle?): View {
 
-        viewModel = ViewModelProvider(this)[AllGuestsViewModel::class.java]
+        viewModel = ViewModelProvider(this).get(AllGuestsViewModel::class.java)
         _binding = FragmentAllGuestsBinding.inflate(inflater, container, false)
 
         // Layout

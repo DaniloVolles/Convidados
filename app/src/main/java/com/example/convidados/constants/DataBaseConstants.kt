@@ -15,6 +15,11 @@ class DataBaseConstants private constructor() {
             const val NAME = "name"
             const val PRESENCE = "presence"
         }
+
+        object PRESENCE {
+            const val FALSE = 0
+            const val TRUE = 1
+        }
     }
 
 }
