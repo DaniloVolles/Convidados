@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.convidados.model.GuestModel
+import com.example.convidados.model.SuccessFailure
 import com.example.convidados.repository.GuestRepository
 
 class GuestFormViewModel(application: Application) : AndroidViewModel(application) {
@@ -15,22 +16,15 @@ class GuestFormViewModel(application: Application) : AndroidViewModel(applicatio
     private val guestModel = MutableLiveData<GuestModel>()
     val guest: LiveData<GuestModel> = guestModel
 
-    private val _saveGuest = MutableLiveData<String>()
-    val saveGuest: LiveData<String> = _saveGuest
+    private val _saveGuest = MutableLiveData<SuccessFailure>()
+    val saveGuest: LiveData<SuccessFailure> = _saveGuest
 
     fun save(guest: GuestModel) {
+        val successFailure = SuccessFailure(true, "")
         if (guest.id == 0) {
-            if (repository.insert(guest)){
-                _saveGuest.value = "Inserção com sucesso"
-            } else {
-                _saveGuest.value = "Falha"
-            }
+            successFailure.success = repository.insert(guest)
         } else {
-            if (repository.update(guest)){
-                _saveGuest.value = "Atualização com sucesso"
-            } else {
-                _saveGuest.value = "Falha"
-            }
+            successFailure.success = repository.update(guest)
         }
     }
 
