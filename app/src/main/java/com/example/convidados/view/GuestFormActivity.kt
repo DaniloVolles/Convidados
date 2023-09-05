@@ -17,7 +17,6 @@ class GuestFormActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityGestFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

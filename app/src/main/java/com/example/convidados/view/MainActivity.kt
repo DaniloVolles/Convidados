@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarMain.toolbar)
 
-        binding.appBarMain.fab.setOnClickListener { view ->
+        binding.appBarMain.fab.setOnClickListener {
             startActivity(Intent(applicationContext, GuestFormActivity::class.java))
         }
 
@@ -44,9 +44,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_all_guests, R.id.nav_present, R.id.nav_absent
-            ), drawerLayout
+            setOf(R.id.nav_all_guests, R.id.nav_present, R.id.nav_absent), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
