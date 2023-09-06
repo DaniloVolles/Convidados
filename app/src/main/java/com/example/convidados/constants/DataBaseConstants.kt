@@ -17,8 +17,8 @@ class DataBaseConstants private constructor() {
         }
 
         object PRESENCE {
-            const val FALSE = 0
-            const val TRUE = 1
+            const val ABSENT = 0
+            const val PRESENT = 1
         }
     }
 
